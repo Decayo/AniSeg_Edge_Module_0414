@@ -320,7 +320,17 @@ if __name__ == '__main__':
                 pbar.set_description(print_str, refresh=False)
 
                 end_time = time.time()
-
+            f=open(r'/content/drive/MyDrive/_Anime_paper_/log'+"loss.txt", "a+")
+            f.write('epoch %d\r\n'%epoch)
+            f.write(str(sum_loss_sup / len(pbar))+'\r\n')
+            f.write(str(sum_loss_sup_r / len(pbar))+'\r\n')
+            f.write(str(sum_cps / len(pbar))+'\r\n')
+            f.write('_______________ \r\n')
+            f.close()
+            print('loss:')
+            print(sum_loss_sup / len(pbar))
+            print(sum_loss_sup_r / len(pbar))
+            print(sum_cps / len(pbar))
             if engine.distributed and (engine.local_rank == 0):
                 logger.add_scalar('train_loss_sup', sum_loss_sup / len(pbar), epoch)
                 logger.add_scalar('train_loss_sup_r', sum_loss_sup_r / len(pbar), epoch)
