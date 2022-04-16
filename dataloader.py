@@ -79,12 +79,16 @@ class TrainPre(object):
     def __call__(self, img, gt=None):
         # gt = gt - 1     # label 0 is invalid, this operation transfers label 0 to label 255
         
+        
+        
         img, gt = random_mirror(img, gt)
         if config.train_scale_array is not None:
             img, gt, scale = random_scale(img, gt, config.train_scale_array)
             
-        
-        img, gt = random_3d_transformation(img,gt)
+        if gt is not None:
+            gt[gt>12] = 0
+            gt[gt<0] = 0
+        #img, gt = random_3d_transformation(img,gt)
 
         img = normalize(img, self.img_mean, self.img_std)
 
