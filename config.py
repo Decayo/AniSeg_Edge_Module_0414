@@ -97,19 +97,19 @@ C.num_unsup_imgs = 3147     # unsupervised samples
 if os.getenv('learning_rate'):
     C.lr = float(os.environ['learning_rate'])
 else:
-    C.lr = 0.005
+    C.lr = 0.009
 
 if os.getenv('batch_size'):
     #C.batch_size = int(os.environ['batch_size'])
-    C.batch_size = 8
+    C.batch_size = 6
 else:
-    C.batch_size = 8
+    C.batch_size = 6
 
 C.lr_power = 0.9
 C.momentum = 0.9
 C.weight_decay = 1e-4
 
-C.nepochs = 60
+C.nepochs = 100
 C.max_samples = max(C.num_train_imgs, C.num_unsup_imgs)     # Define the iterations in an epoch
 C.cold_start = 0
 C.niters_per_epoch = int(math.ceil(C.max_samples * 1.0 // C.batch_size))

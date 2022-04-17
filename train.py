@@ -262,7 +262,7 @@ if __name__ == '__main__':
                     s2_ce29_group =  F.interpolate(input=s2_ce29_group[0][-1], size=(h, w),
                                        mode='bilinear', align_corners=True)
                     
-                    cps_loss = criterion(s1_ce29_group, ps_label_2) + criterion(s1_ce29_group, ps_label_1)
+                    cps_loss = criterion(s1_ce29_group, ps_label_2) + criterion(s2_ce29_group, ps_label_1)
                     #dist.all_reduce(cps_loss, dist.ReduceOp.SUM)
                     #cps_loss = cps_loss / 1
                     cps_loss = cps_loss * config.cps_weight
