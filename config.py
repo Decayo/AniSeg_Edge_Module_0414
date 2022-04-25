@@ -55,7 +55,7 @@ C.dataset_path = osp.join(C.volna)
 C.img_root_folder = C.dataset_path
 C.gt_root_folder = C.dataset_path
 #C.pretrained_model = C.volna + 'DATA/pytorch-weight/resnet50_v1c.pth'
-C.pretrained_model = r'/content/drive/MyDrive/_Anime_paper_/log/' + 'epoch-last.pth'
+C.pretrained_model = r'/content/drive/MyDrive/_Anime_paper_/log/' + 'epoch-20.pth'
 """ Path Config """
 def add_path(path):
     if path not in sys.path:
@@ -73,11 +73,11 @@ C.fix_bias = True
 C.bn_eps = 1e-5
 C.bn_momentum = 0.1
 
-C.cps_weight = 1
+C.cps_weight = 6
 """Cutmix Config"""
 C.cutmix_mask_prop_range = (0.25, 0.5)
 C.cutmix_boxmask_n_boxes = 3
-C.cutmix_boxmask_fixed_aspect_ratio = False
+C.cutmix_boxmask_fixed_aspect_ratio = True
 C.cutmix_boxmask_by_size = False
 C.cutmix_boxmask_outside_bounds = False
 C.cutmix_boxmask_no_invert = False
@@ -89,15 +89,15 @@ C.image_mean = np.array([0.485, 0.456, 0.406])  # 0.485, 0.456, 0.406
 C.image_std = np.array([0.229, 0.224, 0.225])
 C.image_height = 512
 C.image_width = 512
-C.num_train_imgs = 517
+C.num_train_imgs = 718
 C.num_eval_imgs = 275
-C.num_unsup_imgs = 3147     # unsupervised samples
+C.num_unsup_imgs = 4500     # unsupervised samples
 
 """Train Config"""
 if os.getenv('learning_rate'):
     C.lr = float(os.environ['learning_rate'])
 else:
-    C.lr = 0.009
+    C.lr = 0.005
 
 if os.getenv('batch_size'):
     #C.batch_size = int(os.environ['batch_size'])

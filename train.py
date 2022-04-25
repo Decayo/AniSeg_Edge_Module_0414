@@ -27,11 +27,11 @@ from c2pe_loss.target_generation import generate_edge_tensor
 from tensorboardX import SummaryWriter
 
 scaler = torch.cuda.amp.GradScaler()
-try:
-    from apex.parallel import DistributedDataParallel, SyncBatchNorm
-except ImportError:
-    raise ImportError(
-        "Please install apex from https://www.github.com/nvidia/apex .")
+# try:
+#     from apex.parallel import DistributedDataParallel, SyncBatchNorm
+# except ImportError:
+#     raise ImportError(
+#         "Please install apex from https://www.github.com/nvidia/apex .")
 
 try:
     from azureml.core import Run
@@ -106,7 +106,7 @@ if __name__ == '__main__':
             print("----not distributed")
             BatchNorm2d = nn.BatchNorm2d
         model = Network(config.num_classes, criterion=criterion,
-                        pretrained_model=None,
+                        pretrained_model=config.pretrained_model,
                         norm_layer=BatchNorm2d)
         # init_weight(model.branch1.business_layer, nn.init.kaiming_normal_,
         #             BatchNorm2d, config.bn_eps, config.bn_momentum,
