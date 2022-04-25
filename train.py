@@ -340,12 +340,12 @@ if __name__ == '__main__':
                 run.log(name='Supervised Training Loss', value=sum_loss_sup / len(pbar))
                 run.log(name='Supervised Training Loss right', value=sum_loss_sup_r / len(pbar))
                 run.log(name='Supervised Training Loss CPS', value=sum_cps / len(pbar))
-
-            if engine.distributed and (engine.local_rank == 0):
-                engine.save_and_link_checkpoint(config.snapshot_dir,
-                                                config.log_dir,
-                                                config.log_dir_link)
-            elif not engine.distributed:
-                engine.save_and_link_checkpoint(config.snapshot_dir,
-                                                config.log_dir,
-                                                config.log_dir_link)
+            if (epoch % config.snapshot_iter == 0) or (epoch == config.nepochs - 1):
+                if engine.distributed and (engine.local_rank == 0):
+                    engine.save_and_link_checkpoint(config.snapshot_dir,
+                                                    config.log_dir,
+                                                    config.log_dir_link)
+                elif not engine.distributed:
+                    engine.save_and_link_checkpoint(config.snapshot_dir,
+                                                    config.log_dir,
+                                                    config.log_dir_link)

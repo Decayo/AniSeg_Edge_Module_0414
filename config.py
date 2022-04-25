@@ -109,12 +109,12 @@ C.lr_power = 0.9
 C.momentum = 0.9
 C.weight_decay = 1e-4
 
-C.nepochs = 100
+C.nepochs = 200
 C.max_samples = max(C.num_train_imgs, C.num_unsup_imgs)     # Define the iterations in an epoch
 C.cold_start = 0
 C.niters_per_epoch = int(math.ceil(C.max_samples * 1.0 // C.batch_size))
 C.num_workers = 0
-C.train_scale_array = [0.5,0.75, 1,1.25,1.5,1.75,2,2.25,2.5]
+C.train_scale_array = [0.75,1,1.5,2,2.25,2.5]
 C.warm_up_epoch = 0
 
 ''' Eval Config '''
@@ -129,7 +129,7 @@ C.eval_crop_size = 512
 if os.getenv('snapshot_iter'):
     C.snapshot_iter = int(os.environ['snapshot_iter'])
 else:
-    C.snapshot_iter = 2
+    C.snapshot_iter = 5
 
 C.record_info_iter = 20
 C.display_iter = 50
