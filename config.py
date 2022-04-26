@@ -76,7 +76,7 @@ C.bn_momentum = 0.1
 C.cps_weight = 3
 """Cutmix Config"""
 C.cutmix_mask_prop_range = (0.25, 0.5)
-C.cutmix_boxmask_n_boxes = 3
+C.cutmix_boxmask_n_boxes = 1
 C.cutmix_boxmask_fixed_aspect_ratio = True
 C.cutmix_boxmask_by_size = False
 C.cutmix_boxmask_outside_bounds = False
@@ -91,7 +91,7 @@ C.image_height = 512
 C.image_width = 512
 C.num_train_imgs = 703
 C.num_eval_imgs = 275
-C.num_unsup_imgs = 4500     # unsupervised samples
+C.num_unsup_imgs = 10537 -  C.num_train_imgs   # unsupervised samples
 
 """Train Config"""
 if os.getenv('learning_rate'):
