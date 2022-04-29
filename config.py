@@ -73,7 +73,7 @@ C.fix_bias = True
 C.bn_eps = 1e-5
 C.bn_momentum = 0.1
 
-C.cps_weight = 3
+C.cps_weight = 5
 """Cutmix Config"""
 C.cutmix_mask_prop_range = (0.25, 0.5)
 C.cutmix_boxmask_n_boxes = 1

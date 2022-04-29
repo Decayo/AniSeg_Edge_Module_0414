@@ -250,8 +250,8 @@ class ResNet(nn.Module):
         self.layer4 = self._make_layer(block, norm_layer, 512, layers[3],
                                        inplace, stride=2,
                                        bn_eps=bn_eps, bn_momentum=bn_momentum)
-        #self.context_encoding = PSPModule(2048, 512)
-        self.context_encoding = ASPP(2048, 512, [6, 12, 18])
+        self.context_encoding = PSPModule(2048, 512)
+        #self.context_encoding = ASPP(2048, 512, [6, 12, 18])
         self.edge = Edge_Module()
         self.decoder = Decoder_Module(config.num_classes)
 
