@@ -47,7 +47,7 @@ C.log_file = C.log_dir + '/log_' + exp_time + '.log'
 C.link_log_file = C.log_file + '/log_last.log'
 C.val_log_file = C.log_dir + '/val_' + exp_time + '.log'
 C.link_val_log_file = C.log_dir + '/val_last.log'
-C.loss_log = r'/content/drive/MyDrive/_Anime_paper_/log'+"loss.txt"
+C.loss_log = r'/content/drive/MyDrive/_Anime_paper_/log'+"loss_16.txt"
 
 """ Data Dir and Weight Dir """
 #0312 changed
@@ -84,7 +84,7 @@ C.cutmix_boxmask_outside_bounds = False
 C.cutmix_boxmask_no_invert = False
 
 ''' Image Config '''
-C.num_classes = 13
+C.num_classes = 16
 C.background = 0
 C.image_mean = np.array([0.485, 0.456, 0.406])  # 0.485, 0.456, 0.406
 C.image_std = np.array([0.229, 0.224, 0.225])
@@ -92,7 +92,7 @@ C.image_height = 512
 C.image_width = 512
 C.num_train_imgs = 703
 C.num_eval_imgs = 275
-C.num_unsup_imgs = 10537 -  C.num_train_imgs   # unsupervised samples
+C.num_unsup_imgs = 14805 -  C.num_train_imgs   # unsupervised samples
 
 """Train Config"""
 if os.getenv('learning_rate'):
@@ -102,9 +102,9 @@ else:
 
 if os.getenv('batch_size'):
     #C.batch_size = int(os.environ['batch_size'])
-    C.batch_size = 18
+    C.batch_size = 6
 else:
-    C.batch_size = 18
+    C.batch_size = 6
 
 C.lr_power = 0.9
 C.momentum = 0.9

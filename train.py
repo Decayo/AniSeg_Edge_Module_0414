@@ -25,7 +25,7 @@ from c2pe_loss.c2pe_criterion import CriterionAll
 from c2pe_loss.target_generation import generate_edge_tensor
 # from seg_opr.sync_bn import DataParallelModel, Reduce, BatchNorm2d
 from tensorboardX import SummaryWriter
-
+from utils.warmup_scheduler import SGDRScheduler
 scaler = torch.cuda.amp.GradScaler()
 # try:
 #     from apex.parallel import DistributedDataParallel, SyncBatchNorm
@@ -145,8 +145,10 @@ if __name__ == '__main__':
                                     momentum=config.momentum,
                                     weight_decay=config.weight_decay)
 
-
-
+        lr_scheduler_r = SGDRScheduler(optimizer_r, total_epoch=config.nepochs,
+                                 eta_min=config.lr / 100, warmup_epoch=10,
+                                 start_cyclical=100, cyclical_base_lr=config.lr / 2,
+                                 cyclical_epoch=10)
         # config lr policy
         total_iteration = config.nepochs * config.niters_per_epoch
         lr_policy = WarmUpPolyLR(base_lr, config.lr_power, total_iteration, config.niters_per_epoch * config.warm_up_epoch)
@@ -178,7 +180,8 @@ if __name__ == '__main__':
                 pbar = tqdm(range(10), file=sys.stdout, bar_format=bar_format)
             else:
                 pbar = tqdm(range(config.niters_per_epoch), file=sys.stdout, bar_format=bar_format)
-
+            lr_scheduler_r.step(epoch=epoch)
+            lr = lr_scheduler_r.get_lr()[0]
             dataloader = iter(train_loader)
             unsupervised_dataloader_0 = iter(unsupervised_train_loader_0)
             unsupervised_dataloader_1 = iter(unsupervised_train_loader_1)
@@ -320,7 +323,7 @@ if __name__ == '__main__':
                 pbar.set_description(print_str, refresh=False)
 
                 end_time = time.time()
-            f=open(r'/content/drive/MyDrive/_Anime_paper_/log'+"loss.txt", "a+")
+            f=open(config.loss_log, "a+")
             f.write('epoch %d\r\n'%epoch)
             f.write(str(sum_loss_sup / len(pbar))+'\r\n')
             f.write(str(sum_loss_sup_r / len(pbar))+'\r\n')
