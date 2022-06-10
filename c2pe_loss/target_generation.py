@@ -2,7 +2,7 @@ import torch
 from torch.nn import functional as F
 
 
-def generate_edge_tensor(label, edge_width=1):
+def generate_edge_tensor(label, edge_width=3):
     label = label.type(torch.cuda.FloatTensor)
     if len(label.shape) == 2:
         label = label.unsqueeze(0)
